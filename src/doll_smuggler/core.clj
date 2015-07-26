@@ -111,8 +111,6 @@
 
     (let [dolls (get_dolls (get options :file)) capacity (get_capacity (get options :file))]
 
-      (println dolls)
-
       (let [[value indexes] (knapsack_calc (-> dolls count dec) capacity dolls)
           names (map (comp :name dolls) indexes) values (map (comp :value dolls) indexes) weights (map (comp :weight dolls) indexes)]
         

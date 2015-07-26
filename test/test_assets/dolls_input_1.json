@@ -1,0 +1,13 @@
+{
+  "max_weight": 400,
+  "dolls" : [
+    { "name": "luke",
+      "weight": 9,
+      "value": 150
+      },
+    { "name": "anthony",
+      "weight": 13,
+      "value": 35
+      }
+    ]
+  };

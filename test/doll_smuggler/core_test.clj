@@ -42,7 +42,7 @@
 (comment "This test uses sample data set from problem description:
           https://github.com/micahalles/doll-smuggler. Test refactored 
           using code from https://github.com/mrozema/doll-smuggler")
-(deftest find-dolls-atomic
+(deftest knapsack_atomic
   (testing 
     "Test the knapsack algorithm against the data given by Atomic Object"
     (let [[value indexes] (knapsack_calc (-> atomic_dolls count dec) 400 atomic_dolls)]
@@ -57,13 +57,13 @@
   )
 
 (comment "Giant doll shouldn't be able to fit in the purse")
-(deftest find-dolls-giant
+(deftest knapsack_giant
   (testing 
     "Test the knapsack algorithm against the giant doll data"
     (let [[value indexes] (knapsack_calc (-> giant_doll count dec) 400 giant_doll)]
       ;; test existence of dolls
       (is (= (set indexes) #{}))
-      ;; test outputed total value
+      ;; test outputted total weight
       (is (= value 0))
       ;; test the outputted total weight
       (is (= (reduce + (map (comp :weight giant_doll) indexes)) 0))
@@ -72,7 +72,7 @@
   )
 
 (comment "all dolls should fit in the purse")
-(deftest find-dolls-light
+(deftest knapsack_light
   (testing 
     "Test the knapsack algorithm against the light dolls data"
     (let [[value indexes] (knapsack_calc (-> light_dolls count dec) 400 light_dolls)]
@@ -86,4 +86,14 @@
     )
   )
 
-
+(comment "testing JSON import")
+(deftest json_import
+  (testing
+    "Test JSON import to see if files are read correctly"
+    (let [json_in (product_run "./test/test_assets/dolls_input_1.json")]
+      (is (= (get json_in "max_weight") 400))
+      ;(println (get json_in "max_weight") )
+      (is (= (get (get json_in "dolls") 0 ) {"name" "luke" "weight" 9 "value" 150}))
+      )
+    )
+  )
