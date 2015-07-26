@@ -1,6 +1,12 @@
-# doll-smuggler
+# doll-smuggler by Nathan Ward
 
-FIXME: description
+## Problem specification:
+
+This project is a solution to the [Atomic Object Clojure coding challenge](https://github.com/micahalles/doll-smuggler). The problem specified for this challenge is not a new one, it is a variant of the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem) which is a standard example in computer science literature used to demonstrate principles in dynamic programming and computational complexity. 
+
+The major unique feature of this project is not the  knapsack calculation algorithm itself, rather it is the use of [JSON](https://en.wikipedia.org/wiki/JSON) for providing information about the dolls and knapsack and for the output of the data from the calculation. 
+
+JSON is often used for transmitting and receiving information from RESTful web API's. This project could feasibly be hosted on a webserver and could be used to provide optimal doll packing advice to clients who access this service. 
 
 ## Installation
 
@@ -24,13 +30,3 @@ FIXME: listing of options this app accepts.
 
 ...
 
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.

@@ -1,3 +1,7 @@
+;; Code written for Atomic Object programming challenge 
+;; Written by Nathan Ward
+;; Original commit date: 2015/7/24
+;; Special thanks to Rosetta Code and Matt Rosema, whose code helped to move this project forward
 (ns doll-smuggler.core
   (:require [cheshire.core :refer :all] 
             [clojure.tools.cli :refer [parse-opts]]
@@ -29,6 +33,12 @@
 ;   (parse-stream 
 ;     (clojure.java.io/reader (get options :file))))
 
+(defstruct doll :name :weight :value)
+ 
+(defn itemize [item-data]
+  (vec (map #(apply struct doll %) (partition 3 item-data))))
+
+
 (defn product_run [file]
   (parse-stream 
     (clojure.java.io/reader file)))
@@ -44,8 +54,7 @@
 
 
 
-;; code adopted from http://rosettacode.org/wiki/Knapsack_problem/0-1#Clojure
-
+;; knapsack calculation code adopted from http://rosettacode.org/wiki/Knapsack_problem/0-1#Clojure
 
 (declare kc) ;forward decl for memoization function
  
@@ -68,19 +77,24 @@
 (defn -main
   [& args]
   (let [{:keys [options arguments]} (parse-opts args cli-options)]
-
-    (println (get options :file))
-
-
-
     
     (let [dolls (get_dolls (get options :file)) capacity (get_capacity (get options :file))]
 
       (let [[value indexes] (knapsack_calc (-> dolls count dec) capacity dolls)
-          names (map (comp :name dolls) indexes)]
-      (println "dolls to pack:" (join ", " names))
-      (println "total value:" value)
-      (println "total weight:" (reduce + (map (comp :weight dolls) indexes))))
+          names (map (comp :name dolls) indexes) values (map (comp :value dolls) indexes) weights (map (comp :weight dolls) indexes)]
+        
+        ; (println "dolls to pack:" names)
+        ; (println "values of dolls (respectively):" (join ", " values))
+        ; (println "weights of dolls (repsectively):" (join ", " weights))
+        ; (println "total value:" value)
+        ; (println "total weight:" (reduce + (map (comp :weight dolls) indexes)))
+
+        (def dolls_out (itemize (flatten (map vector names values weights))))
+
+        (println (generate-string { "total_weight" (reduce + (map (comp :weight dolls) indexes))
+          "total_value" value
+          "dolls" dolls_out}))
       )
     )
   )
+)
