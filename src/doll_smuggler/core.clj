@@ -4,6 +4,7 @@
 ;; Special thanks to Rosetta Code and Matt Rosema, whose code helped to move this project forward
 (ns doll-smuggler.core
   (:require [cheshire.core :refer :all] 
+            [clojure.string :as string]
             [clojure.tools.cli :refer [parse-opts]]
     )
   (use [clojure.string :only [join]])
@@ -17,14 +18,14 @@
     :default "./input_files/dolls_input_0.json"
     ;:parse-fn #(Integer/parseInt %)
 
-    :validate [#(.exists (as-file %1)) "Invalid File Path"]]]
+    :validate [#(.exists (as-file %1)) "Invalid File Path"]]
    ; ;; A non-idempotent option
    ; ["-v" nil "Verbosity level"
    ;  :id :verbosity
    ;  :default 0
    ;  :assoc-fn (fn [m k _] (update-in m [k] inc))]
    ; ;; A boolean option defaulting to nil
-   ; ["-h" "--help"]]
+    ["-h" "--help"]]
    )
 
 ;;parse json into clojure data structures
@@ -52,7 +53,31 @@
   (get (product_run file) "max_weight"))
 
 
+;; function "usage" derived from: https://github.com/clojure/tools.cli
+(defn usage [options-summary]
+  (->> ["This is my program. There are many like it, but this one is mine."
+        ""
+        "Usage: program-name [options] action"
+        ""
+        "Options:"
+        options-summary
+        ""
+        "Actions:"
+        "  start    Start a new server"
+        "  stop     Stop an existing server"
+        "  status   Print a server's status"
+        ""
+        "Please refer to the manual page for more information."]
+       (string/join \newline)))
 
+
+(defn error-msg [errors]
+  (str "The following errors occurred while parsing your command:\n\n"
+       (string/join \newline errors)))
+
+(defn exit [status msg]
+  (println msg)
+  (System/exit status))
 
 ;; knapsack calculation code adopted from http://rosettacode.org/wiki/Knapsack_problem/0-1#Clojure
 
@@ -76,9 +101,17 @@
 
 (defn -main
   [& args]
-  (let [{:keys [options arguments]} (parse-opts args cli-options)]
+  ;; argument code adopted from https://github.com/mrozema/doll-smuggler
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     
+    (cond
+      (:help options) (exit 0 (usage summary))
+      (not= (count arguments) 0) (exit 1 (usage summary))
+      errors (exit 1 (error-msg errors)))
+
     (let [dolls (get_dolls (get options :file)) capacity (get_capacity (get options :file))]
+
+      
 
       (let [[value indexes] (knapsack_calc (-> dolls count dec) capacity dolls)
           names (map (comp :name dolls) indexes) values (map (comp :value dolls) indexes) weights (map (comp :weight dolls) indexes)]
