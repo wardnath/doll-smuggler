@@ -16,6 +16,8 @@ JSON is often used for transmitting and receiving information from RESTful web s
 * [cheshire](https://github.com/dakrone/cheshire)
 * org.clojure/tools/cli
 
+The last three requirements are automatically retrieved by leiningen. 
+
 ## Installation and Usage
 
 1. Download the project from https://github.com/wardnath/doll-smuggler using git or download as a zip and extract
