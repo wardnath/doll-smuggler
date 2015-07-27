@@ -28,11 +28,6 @@
     ["-h" "--help"]]
    )
 
-;;parse json into clojure data structures
-;; example file: "./input_files/dolls_input_0.json"
-; (def product_run 
-;   (parse-stream 
-;     (clojure.java.io/reader (get options :file))))
 
 (defstruct doll :name :weight :value)
  
@@ -55,19 +50,35 @@
 
 ;; function "usage" derived from: https://github.com/clojure/tools.cli
 (defn usage [options-summary]
-  (->> ["This is my program. There are many like it, but this one is mine."
-        ""
-        "Usage: program-name [options] action"
-        ""
-        "Options:"
-        options-summary
-        ""
-        "Actions:"
-        "  start    Start a new server"
-        "  stop     Stop an existing server"
-        "  status   Print a server's status"
-        ""
-        "Please refer to the manual page for more information."]
+  (->> ["doll-smuggler by Nathan Ward"
+
+        "    Options"
+
+        "    There are two parameters that can be used at the command line for doll-smuggler"
+
+        "    Options:"
+        "      -f, --file FILEPATH  Default: ./input_files/dolls_input_0.json This provides the JSON file to the application"
+        "      -h, --help"
+
+        "     Examples"
+
+        "     $ lein -m doll-smuggler.core run"
+
+        "    Run code with default data, dolls_input_0.json"
+
+        "     $ lein run -m doll-smuggler.core -f ""./input_files/dolls_input_1.json"""
+
+        "    Runs the application with dolls_input_1.json from the input_files directory"
+
+        "     $ lein run -m doll-smuggler.core -h "
+
+        "    Generates helpful documentation"
+
+        "    $ lein test"
+
+        "    Runs test suite"
+
+        "    Please see https://github.com/wardnath/doll-smuggler for more information"]
        (string/join \newline)))
 
 
@@ -124,7 +135,7 @@
 
         (println (generate-string { "total_weight" (reduce + (map (comp :weight dolls) indexes))
           "total_value" value
-          "dolls" dolls_out}))
+          "dolls" dolls_out} {:pretty true}))
       )
     )
   )
