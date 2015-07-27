@@ -6,7 +6,7 @@ This project is a solution to the [Atomic Object Clojure coding challenge](https
 
 The major unique feature of this project is not the  knapsack calculation algorithm itself, rather it is the use of [JSON](https://en.wikipedia.org/wiki/JSON) for providing information about the dolls and knapsack and for the output of the data from the calculation. 
 
-JSON is often used for transmitting and receiving information from RESTful web services. This project could feasibly be hosted on a webserver and could be used to provide optimal doll packing advice to clients who access this service. Clients could send in information to our webserver using JSON to encode the capacity of the backpack and all of the possible dolls that could go on those trips. Our product could then send back the recommendations of what dolls they could take via JSON coding again.
+JSON is often used for transmitting and receiving information from RESTful web services. This project could feasibly be hosted on a webserver and could be used to provide optimal doll packing advice to clients who access this service. Clients would send in information to our webserver using JSON to encode the capacity of the backpack and all of the possible dolls that can go on a trip. Our product would then send back the recommendations of what dolls they should take via JSON coding again.
 
 ## Requirements
 
