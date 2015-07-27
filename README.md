@@ -29,12 +29,11 @@ The last three requirements are automatically retrieved by leiningen.
 
 **Output Format**
 
-With `lein run -m doll-smuggler.core` the code will output JSON formatted data of the solution to dolls_input_0.json located in the input_files directory. With command line options, other input data can also be provided. The output includes the dolls that should be put in the backpack, the total weight of these dolls and their total value:
+With `lein run -m doll-smuggler.core` the code will output JSON formatted data of the solution to dolls_input_0.json located in the input_files directory. With command line options, other input data can also be provided. The output includes the dolls that should be put in the backpack, the total weight of these dolls:
 ```
 $ lein run
 {
   "total_weight" : 396,
-  "total_value" : 1030,
   "dolls" : [ {
     "name" : "luke",
     "weight" : 150,

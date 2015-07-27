@@ -134,7 +134,6 @@
         (def dolls_out (itemize (flatten (map vector names values weights))))
 
         (println (generate-string { "total_weight" (reduce + (map (comp :weight dolls) indexes))
-          "total_value" value
           "dolls" dolls_out} {:pretty true}))
       )
     )
