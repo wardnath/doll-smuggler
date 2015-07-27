@@ -1,7 +1,7 @@
 ;; Code written for Atomic Object programming challenge 
 ;; Written by Nathan Ward
 ;; Original commit date: 2015/7/24
-;; Special thanks to Rosetta Code and Matt Rosema, whose code helped to move this project forward
+;; Special thanks to Rosetta Code and Matt Rozema, whose code helped to move this project forward
 (ns doll-smuggler.core
   (:require [cheshire.core :refer :all] 
             [clojure.string :as string]
@@ -125,11 +125,6 @@
       (let [[value indexes] (knapsack_calc (-> dolls count dec) capacity dolls)
           names (map (comp :name dolls) indexes) values (map (comp :value dolls) indexes) weights (map (comp :weight dolls) indexes)]
         
-        ; (println "dolls to pack:" names)
-        ; (println "values of dolls (respectively):" (join ", " values))
-        ; (println "weights of dolls (repsectively):" (join ", " weights))
-        ; (println "total value:" value)
-        ; (println "total weight:" (reduce + (map (comp :weight dolls) indexes)))
 
         (def dolls_out (itemize (flatten (map vector names values weights))))
 

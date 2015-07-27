@@ -6,7 +6,7 @@
   (testing "Sanity Check"
     (is (= 1 1))))
 
-;;this data is directly from the problem specification
+;;this data is directly from the problem specification code drawn from test suite at: https://github.com/mrozema/doll-smuggler
 (def atomic_dolls 
   [
     { :name "luke"    :weight 9   :value 150} { :name "anthony"  :weight 13 :value 35 }  

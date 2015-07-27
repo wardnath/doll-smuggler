@@ -135,5 +135,8 @@ $ lein test
 
 Runs test suite
 
+## Attribution
 
+This project draws from code from (Rosetta Code)[http://rosettacode.org/wiki/Knapsack_problem/0-1#Clojure]
+ and Matt Rozema of (Atomic Object)[https://github.com/mrozema/doll-smuggler]
 
